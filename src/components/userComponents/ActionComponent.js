@@ -22,8 +22,8 @@ const ActionComponent = ({link, id }) => {
                 View
             </NavLink>
             
-            <NavLink to={`/${link}List/${id}`} className="bg-editGreen p-1 px-4 rounded-[21px] text-[white]">
-                Edit
+            <NavLink to={`/individualMember/${id}`} className="bg-editGreen p-1 px-4 rounded-[21px] text-[white]">
+                members
             </NavLink>
             <NavLink className="bg-deleteRed p-1 px-4 rounded-[21px] text-[white]"
                 // onClick={(id) => handleDelete(id)}

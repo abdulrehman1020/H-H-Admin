@@ -5,18 +5,14 @@ const request = axios.create({
     withCredentials: true,
 })
 
-request.interceptors.response.use(
-    response => response,
-    error => {
-        if (!error.response) {
-            const error = {
-                error: 'No response from the server, please try again later',
-            };
-            const data = { response: { data: error } };
-            return Promise.reject(data);
-        }
-        return Promise.reject(error);
-    },
-);
+function setAuthorizationHeader() {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWU5ZjBlZGM0YTA0NWQyYWM3ZmEzYiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4NTc4NDcwNCwiZXhwIjoxNjg3MDgwNzA0fQ.RMubpMSRK_OZZpLvFOlfe6VRR9o0vozLE5CTi4WuB2E";
+    if (token !== null) {
+      request.defaults.headers["Authorization"] = `Bearer ${token}`;
+    }
+  }
+  
+  // Set the Authorization header immediately if the token is available
+  setAuthorizationHeader();
 
 export default request

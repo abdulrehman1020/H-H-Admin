@@ -4,14 +4,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 // import infoIcon from '../icons/info.svg'
 // import backIcon from '../icons/uturn.svg'
 
-const AdminHeader = ({ heading, pages }) => {
+const AdminHeader = ({ heading }) => {
 
   const navigate = useNavigate()
   return (
     <div className="flex justify-between items-center my-5">
 
       <div>
-        <p>{pages}</p>
+        {/* <p>{pages}</p> */}
         <div className="flex gap-5" onClick={()=> navigate(-1)}>
           {/* <img src={backIcon} className=" cursor-pointer" alt="back-icon" /> */}
           <h1 className="text-[34px] font-segoe font-bold">{heading}</h1>

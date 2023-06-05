@@ -18,24 +18,26 @@ function IndividualUser() {
 
   // Use selector -----------------------------------
   const { loading, individualList, error } = useSelector((state) => state.allIndividuals)
+  // console.log("🚀 ~ file: IndividualUser.js:21 ~ IndividualUser ~ individualList:", individualList)
   // const { message: messageDelete, loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector((state) => state.deleteHost)
 
-  let individualData = individualList && individualList.filter((host) => {
+  let individualData = individualList && individualList.filter((user) => {
     if (activeTab == active) {
-      if (!host.isVerified) return host
+      if (user.isVerified) return user
     }
     if (activeTab == pending) {
-      if (!host.isVerified || !host.isOnBoarded) return host
+      if (!user.isVerified) return user
     }
   })
+  // console.log("🚀 ~ file: IndividualUser.js:31 ~ individualData ~ individualData:", individualData)
 
   individualData = individualData && individualData.map((user, index) => {
     return {
       id: user._id,
       name: `${user.firstName} ${user.lastName}`,
       email: user.email,
-      // mobile: host.phoneNumber,
-      // emailVerified: host.isVerified === "true" ? "true" : "false",
+      // mobile: user.phoneNumber.Cell,
+      emailVerified: user.isVerified === "true" ? "true" : "false",
       // stripeVerified: host.isOnBoarded ? true : false
     }
   })

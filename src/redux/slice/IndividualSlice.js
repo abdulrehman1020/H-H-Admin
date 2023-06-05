@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllIndividuals, getUserDetails } from "../action/IndividualAction";
+import { deleteIndividualMember, getAllIndividuals, getUserDetails, getUserMembers } from "../action/IndividualAction";
 
 const allIndividualSlice = createSlice({
     name: "individuals",
@@ -67,4 +67,68 @@ const allIndividualSlice = createSlice({
     },
   });
 
-export {allIndividualSlice, userDetailSlice}  
+  const userMembersSlice = createSlice({
+    name: "userMembers",
+    initialState: {
+      loading: false,
+      members: [],
+      error: "",
+    },
+    reducers: {
+      hostPropertiesReset: (state) => {
+        state.loading = false;
+        state.members = [];
+        state.error = "";
+      },
+    },
+    extraReducers: (builder) => {
+      builder
+        .addCase(getUserMembers.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(getUserMembers.fulfilled, (state, action) => {
+          state.loading = false;
+          state.members = action.payload;
+        })
+        .addCase(getUserMembers.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload?.error;
+          state.members = []
+        });
+    },
+  });
+
+  const individualMemberDeleteSlice = createSlice({
+    name: 'memberDelete',
+    initialState: {
+        loading: false,
+        success: false,
+        message: '',
+        error: ''
+    },
+    // reducers: {
+    //     deletePropertyReset: (state) => {
+    //         state.loading = false;
+    //         state.success = false;
+    //         state.message = '';
+    //         state.error = ''
+    //     }
+    // },
+    extraReducers: (builder) => {
+        builder
+            .addCase(deleteIndividualMember.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(deleteIndividualMember.fulfilled, (state, action) => {
+                state.loading = false;
+                state.success = action.payload.success;
+                state.message = action.payload.message;
+            })
+            .addCase(deleteIndividualMember.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.error
+            })
+    }
+})
+
+export {allIndividualSlice, userDetailSlice, userMembersSlice, individualMemberDeleteSlice}  

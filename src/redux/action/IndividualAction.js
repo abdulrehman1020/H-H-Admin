@@ -37,4 +37,34 @@ const getUserDetails = createAsyncThunk(
     }
 )
 
-export {getAllIndividuals, getUserDetails}
+const getUserMembers = createAsyncThunk(
+    "userMembers/getUserMembers",
+    async (id, { rejectWithValue }) => {
+        try {
+            const { data } = await request.get(`/auth/invidual-members-admin/${id}`, {
+                withCredentials: true,
+            });
+
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
+const deleteIndividualMember = createAsyncThunk(
+    "deleteMember/deleteMember",
+    async (id, { rejectWithValue }) => {
+      try {
+        const { data } = await request.delete(`/auth/delete-individual-member/${id}`, {
+          withCredentials: true,
+        });
+  
+        return data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
+
+export {getAllIndividuals, getUserDetails, getUserMembers, deleteIndividualMember}

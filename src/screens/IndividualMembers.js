@@ -28,7 +28,7 @@ const IndividualMembers = () => {
         {/* <Details details={host} loading={loadingDetails} link="host"/> */}
         <div className="px-10 bg-white flex justify-between items-center">
           <AdminHeader heading={"Member List"} />
-          <NavLink to={`/createMember`} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
+          <NavLink to={`/createMember/${id}`} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
               Add Members
           </NavLink>
         </div>

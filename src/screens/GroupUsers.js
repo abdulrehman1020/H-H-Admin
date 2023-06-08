@@ -4,6 +4,7 @@ import ActivePending from "../components/ActivePending";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllIndividuals } from "../redux/action/IndividualAction.js";
 import UserListComponent from "../components/userComponents/UserListComponent.js";
+import { getAllGroups } from "../redux/action/GroupAction.js";
 // import { Alert } from "@mui/material";
 // import { deleteHostReset, hostListReset } from "../store/slices/HostSlices";
 
@@ -17,27 +18,27 @@ function IndividualUser() {
   const [activeTab, setActiveTab] = useState(active);
 
   // Use selector -----------------------------------
-  const { loading, individualList, error } = useSelector((state) => state.allIndividuals)
+  const { loading, groupList, error } = useSelector((state) => state.allGroups)
   // console.log("🚀 ~ file: IndividualUser.js:21 ~ IndividualUser ~ individualList:", individualList)
   // const { message: messageDelete, loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector((state) => state.deleteHost)
 
-  let individualData = individualList && individualList.filter((user) => {
-    if (activeTab == active) {
-      if (user.accountStatus === "active") return user
-    }
-    if (activeTab == pending) {
-      if (user.accountStatus === "pending") return user
-    }
-  })
+  // let individualData = groupList && groupList.filter((user) => {
+  //   if (activeTab == active) {
+  //     if (user.accountStatus === "active") return user
+  //   }
+  //   if (activeTab == pending) {
+  //     if (user.accountStatus === "pending") return user
+  //   }
+  // })
   // console.log("🚀 ~ file: IndividualUser.js:31 ~ individualData ~ individualData:", individualData)
 
-  individualData = individualData && individualData.map((user, index) => {
+  const groupData = groupList && groupList.map((user, index) => {
     return {
       id: user._id,
-      name: `${user.firstName} ${user.lastName}`,
+      // name: `${user.firstName} ${user.lastName}`,
       email: user.email,
       // mobile: user.phoneNumber.Cell,
-      emailVerified: user.isVerified === "true" ? "true" : "false",
+      // emailVerified: user.isVerified === "true" ? "true" : "false",
       // stripeVerified: host.isOnBoarded ? true : false
     }
   })
@@ -47,7 +48,7 @@ function IndividualUser() {
   useEffect(() => {
 
     let status = activeTab == active ? 'active' : 'pending';
-    dispatch(getAllIndividuals({ limit, status }))
+    dispatch(getAllGroups({ limit, status }))
   }, [limit, activeTab])
 
   // useEffect(() => {
@@ -116,14 +117,14 @@ function IndividualUser() {
 
       <div className="flex flex-col w-full mx-auto bg-[#F5F5F5]">
         <div className="px-10 bg-white">
-          <AdminHeader heading={"Properties Hosts List"} pages={"Pages / Properties Hosts List"} />
+          <AdminHeader heading={"Group Lists"} pages={"Pages / Properties Hosts List"} />
         </div>
 
         <div className="px-6 py-5 h-screen overflow-auto">
 
           <ActivePending active={active} pending={pending} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          <UserListComponent data={individualData} setLimit={setLimit} activeTab={activeTab} memberLink="individualMember" detailLink="memberDetail" />
+          <UserListComponent data={groupData} setLimit={setLimit} activeTab={activeTab} memberLink="groupMember" detailLink="groupDetail" />
         </div>
       </div>
     </div>

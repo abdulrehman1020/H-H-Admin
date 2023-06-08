@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ActionComponent from './userComponents/ActionComponent';
 
-function ActiveTableComponent({ data, columns, link, name }) {
+function ActiveTableComponent({ data, columns, memberLink, detailLink }) {
 console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ data:", data)
 
   // Handlers
@@ -58,7 +58,7 @@ console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ dat
 
               <td className="py-4 flex justify-between w-fit gap-4 ml-auto pr-5">
 
-                <ActionComponent link={link} id={entry.id} />
+                <ActionComponent memberLink={memberLink} detailLink={detailLink} id={entry.id} />
 
               </td>
             </tr>

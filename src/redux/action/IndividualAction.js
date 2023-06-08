@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import request from "../../utils/request";
 
 const getAllIndividuals = createAsyncThunk(
@@ -67,4 +66,18 @@ const deleteIndividualMember = createAsyncThunk(
     }
   );
 
-export {getAllIndividuals, getUserDetails, getUserMembers, deleteIndividualMember}
+const updateIndividualStatus = createAsyncThunk(
+    "updateIndividual/updateIndividualStatus",
+    async ({id, status}, {rejectWithValue}) =>{
+
+        try {
+            const {data} = await request.patch(`/auth/update-individual-account?id=${id}&status=${status}`)
+
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+)  
+
+export {getAllIndividuals, getUserDetails, getUserMembers, deleteIndividualMember, updateIndividualStatus}

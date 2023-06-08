@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import SideNav from "./components/SideNav";
-import { CreateMember, IndividualMembers, IndividualUser, MemberDetail } from "./screens";
+import { CreateMember, GroupDetail, GroupMembers, GroupUsers, IndividualMembers, IndividualUser, MemberDetail } from "./screens";
 
 
 function App() {
@@ -12,6 +12,9 @@ function App() {
       <Route path="/memberDetail/:id" element={<MemberDetail />} />
       <Route path="/individualMember/:id" element={<IndividualMembers />} />
       <Route path="/createMember" element={<CreateMember />} />
+      <Route path="/groupUser" element={<GroupUsers />} />
+      <Route path="/groupMember/:id" element={<GroupMembers />} />
+      <Route path="/groupDetail/:id" element={<GroupDetail />} />
       </Routes>
     {/* </SideNav> */}
     </div>

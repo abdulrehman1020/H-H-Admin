@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteIndividualMember, getAllIndividuals, getUserDetails, getUserMembers } from "../action/IndividualAction";
+import { deleteIndividualMember, getAllIndividuals, getUserDetails, getUserMembers, updateIndividual, updateIndividualStatus } from "../action/IndividualAction";
 
 const allIndividualSlice = createSlice({
     name: "individuals",
@@ -131,4 +131,32 @@ const allIndividualSlice = createSlice({
     }
 })
 
-export {allIndividualSlice, userDetailSlice, userMembersSlice, individualMemberDeleteSlice}  
+const updateIndividualSlice = createSlice({
+  name: "updateIndividualStatus",
+  initialState: {
+      loading: false,
+      success: false,
+      error: "",
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+      builder
+          .addCase(updateIndividualStatus.pending, (state) => {
+              state.loading = true;
+              state.success = false;
+              state.error = ''
+          })
+          .addCase(updateIndividualStatus.fulfilled, (state, action) => {
+              state.loading = false;
+              state.success = action.payload?.success;
+              state.error = ''
+          })
+          .addCase(updateIndividualStatus.rejected, (state, action) => {
+              state.loading = false;
+              state.success = false;
+              state.error = action.payload?.error
+          });
+  },
+});
+
+export {allIndividualSlice, userDetailSlice, userMembersSlice, individualMemberDeleteSlice, updateIndividualSlice}  

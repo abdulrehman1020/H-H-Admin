@@ -1,17 +1,24 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 // import copyIcon from '../icons/copy.svg'
 // import checkIcon from '../icons/check.svg'
 // import unCheckedIcon from '../icons/uncheck.svg'
 import { NavLink } from 'react-router-dom';
+import {updateIndividualStatus} from '../redux/action/IndividualAction'
 
 
 const PendingTableComponent = ({ data, loading, link }) => {
+    const dispatch = useDispatch();
 console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ data:", data)
 
     // Handlers
     const handleCopyBtn = (content) => {
         navigator.clipboard.writeText(content);
         window.alert("Email Copied")
+    }
+
+    const updateStatus = async (id, status) =>{
+        await dispatch(updateIndividualStatus({id, status}))
     }
 
     return (
@@ -59,6 +66,16 @@ console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ d
                                     {/* <img id='copyIcon' src={copyIcon} alt="copy" className='cursor-pointer' onClick={() => handleCopyBtn(entry.email)} /> */}
                                 </div>
                             </td>
+                            <td className='px-2 w-fit'>
+                            <div className="flex gap-2 items-center">
+                                    
+                                            {/* <img src={checkIcon} alt="check-icon" /> :
+                                            <img src={unCheckedIcon} alt="check-icon" /> */}
+                                        
+                                        <p className='pb-1'>Status pending</p>
+                             </div>
+
+                            </td>
 
                             {/* <td className='px-2 w-fit'>
                                 <div className="pl-2 flex flex-col justify-between min-w-[120px]">
@@ -91,11 +108,13 @@ console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ d
                             <td className="py-4 flex justify-between w-fit gap-4 ml-auto pr-5">
 
                                 {/* <ActionComponent link={link} id={entry.id} /> */}
-                                <NavLink to={`/`} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
-                                    View
+                                <NavLink to={`/`} onClick={() => updateStatus(entry.id, "active")} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
+                                    Active
                                 </NavLink>
-
-                            </td>
+                                <NavLink to={`/`} onClick={() => updateStatus(entry.id, "suspend")} className="bg-red p-1 px-4 rounded-[21px] text-[white]">
+                                Suspend
+                                </NavLink>
+                               </td>
                         </tr>
                     ))}
                 </tbody>

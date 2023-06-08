@@ -58,8 +58,8 @@ const SideNav = () => {
 
             <SideNavLink
               // icon={propertyIcon}
-              label={"Property Hosts"}
-              link={`hostList`}
+              label={"Group Users"}
+              link={`groupUser`}
             />
 
             <SideNavLink

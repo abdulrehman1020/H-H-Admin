@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import SideNav from "./components/SideNav";
 import { CreateMember, GroupDetail, GroupMembers, GroupUsers, IndividualMembers, IndividualUser, MemberDetail } from "./screens";
+import Login from "./screens/Login";
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="flex w-full min-h-screen overflow-auto relative">
     <SideNav />
       <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/user" element={<IndividualUser />} />
       <Route path="/memberDetail/:id" element={<MemberDetail />} />
       <Route path="/individualMember/:id" element={<IndividualMembers />} />

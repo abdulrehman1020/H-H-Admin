@@ -19,6 +19,7 @@ function IndividualUser() {
 
   // Use selector -----------------------------------
   const { loading, groupList, error } = useSelector((state) => state.allGroups)
+  console.log("🚀 ~ file: GroupUsers.js:22 ~ IndividualUser ~ groupList:", groupList)
   // console.log("🚀 ~ file: IndividualUser.js:21 ~ IndividualUser ~ individualList:", individualList)
   // const { message: messageDelete, loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector((state) => state.deleteHost)
 

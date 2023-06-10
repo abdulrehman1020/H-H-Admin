@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import ActionComponent from './userComponents/ActionComponent';
+import Loader from './Loader';
 
-function ActiveTableComponent({ data, columns, memberLink, detailLink }) {
+function ActiveTableComponent({ data, columns, loading, memberLink, detailLink }) {
+console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ loading:", loading)
 console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ data:", data)
 
   // Handlers
@@ -10,6 +12,10 @@ console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ dat
     navigator.clipboard.writeText(content);
     // navigator.clipboard.write(content)
     window.alert(`${e.target.id} Copied`)
+  }
+
+  if (loading) {
+    return <Loader />
   }
 
   return (

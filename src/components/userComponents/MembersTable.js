@@ -1,18 +1,28 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import { NavLink } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteIndividualMember } from '../../redux/action/IndividualAction'
+import { MemberDataContext } from '../../context/MemberDataContext'
 
 
-const MembersTable = ({ data }) => {
-// console.log("🚀 ~ file: MembersTable.js:7 ~ MembersTable ~ data:", data?.individualMembers)
-    // const members = data?.individualMembers
-    const dispatch = useDispatch()
+const MembersTable = ({ data, setMember }) => {
+        const dispatch = useDispatch();
+    // const { memberData, setMemberData } = useContext(MemberDataContext);
+    // console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ memberData:", memberData)
+    const { error } = useSelector((state) => state.userMembers)
 
+   
+
+    const state = useSelector(state => {
+        return state.individualMemberDelete
+    })
+    console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ state:", state)
     // Handlers
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this property?")) {
-            dispatch(deleteIndividualMember(id))
+           await dispatch(deleteIndividualMember(id))
+        //    const updatedMembers = data.filter(member => member.id !== id);
+        //    setMemberData(updatedMembers)
         }
     }
 
@@ -40,6 +50,7 @@ const MembersTable = ({ data }) => {
                         </th>
                     </tr>
                 </thead>
+                {error ? <h1 className='text-[26px] font-bold py-4 flex justify-center items-center'>{error}</h1> : 
                 <tbody>
                     {data?.map((entry, index) => (
                         <tr
@@ -74,7 +85,7 @@ const MembersTable = ({ data }) => {
                             </td>
                         </tr>
                     ))}
-                </tbody>
+                </tbody>}
             </table>
         </div>
     )

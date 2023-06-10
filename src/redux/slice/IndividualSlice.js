@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteIndividualMember, getAllIndividuals, getUserDetails, getUserMembers, updateIndividual, updateIndividualStatus } from "../action/IndividualAction";
+import { deleteIndividualMember, getAllIndividuals, getUserDetails, getUserMembers, updateIndividualStatus } from "../action/IndividualAction";
 
 const allIndividualSlice = createSlice({
     name: "individuals",
@@ -74,13 +74,13 @@ const allIndividualSlice = createSlice({
       members: [],
       error: "",
     },
-    reducers: {
-      hostPropertiesReset: (state) => {
-        state.loading = false;
-        state.members = [];
-        state.error = "";
-      },
-    },
+    // reducers: {
+    //   hostPropertiesReset: (state) => {
+    //     state.loading = false;
+    //     state.members = [];
+    //     state.error = "";
+    //   },
+    // },
     extraReducers: (builder) => {
       builder
         .addCase(getUserMembers.pending, (state) => {
@@ -92,7 +92,7 @@ const allIndividualSlice = createSlice({
         })
         .addCase(getUserMembers.rejected, (state, action) => {
           state.loading = false;
-          state.error = action.payload?.error;
+          state.error = action.payload?.msg;
           state.members = []
         });
     },
@@ -120,13 +120,14 @@ const allIndividualSlice = createSlice({
                 state.loading = true;
             })
             .addCase(deleteIndividualMember.fulfilled, (state, action) => {
+                console.log("🚀 ~ file: IndividualSlice.js:123 ~ .addCase ~ action:", action)
                 state.loading = false;
                 state.success = action.payload.success;
-                state.message = action.payload.message;
+                state.message = action.payload.msg;
             })
             .addCase(deleteIndividualMember.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload?.error
+                state.error = action.payload?.msg
             })
     }
 })
@@ -148,13 +149,13 @@ const updateIndividualSlice = createSlice({
           })
           .addCase(updateIndividualStatus.fulfilled, (state, action) => {
               state.loading = false;
-              state.success = action.payload?.success;
+              state.success = true;
               state.error = ''
           })
           .addCase(updateIndividualStatus.rejected, (state, action) => {
               state.loading = false;
               state.success = false;
-              state.error = action.payload?.error
+              state.error = action.payload?.msg
           });
   },
 });

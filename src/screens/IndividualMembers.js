@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import AdminHeader from '../components/AdminHeader'
@@ -14,10 +14,14 @@ const IndividualMembers = () => {
     // Use Selectors -------------------------------
     // const { loading: loadingDetails, host, error: errorHostDetails } = useSelector((state) => state.hostDetails)
     const { loading, members, error } = useSelector((state) => state.userMembers)
-    const data = members?.individualMembers
+    console.log("🚀 ~ file: IndividualMembers.js:17 ~ IndividualMembers ~ error:", error)
+    console.log("🚀 ~ file: IndividualMembers.js:17 ~ IndividualMembers ~ loading:", loading)
+    var data = members?.individualMembers
+    // const [member, setMember] = useState()
     useEffect(() => {
       console.log("id ", id);
       dispatch(getUserMembers(id))
+      // setMember(data)
     }, [])
   
     return (

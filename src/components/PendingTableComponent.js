@@ -1,15 +1,17 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import copyIcon from '../icons/copy.svg'
 // import checkIcon from '../icons/check.svg'
 // import unCheckedIcon from '../icons/uncheck.svg'
 import { NavLink } from 'react-router-dom';
 import {updateIndividualStatus} from '../redux/action/IndividualAction'
+import Loader from './Loader';
 
 
-const PendingTableComponent = ({ data, loading, link }) => {
+const PendingTableComponent = ({ data, setRefresh, link }) => {
     const dispatch = useDispatch();
-console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ data:", data)
+    const {loading, success} = useSelector(state => state.updateIndividualStatus)
+    console.log("🚀 ~ file: PendingTableComponent.js:14 ~ PendingTableComponent ~ success:", success)
 
     // Handlers
     const handleCopyBtn = (content) => {
@@ -19,6 +21,13 @@ console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ d
 
     const updateStatus = async (id, status) =>{
         await dispatch(updateIndividualStatus({id, status}))
+        if (success) {
+            setRefresh(true)
+        }
+    }
+
+    if (loading) {
+        return <Loader />
     }
 
     return (
@@ -108,10 +117,10 @@ console.log("🚀 ~ file: PendingTableComponent.js:9 ~ PendingTableComponent ~ d
                             <td className="py-4 flex justify-between w-fit gap-4 ml-auto pr-5">
 
                                 {/* <ActionComponent link={link} id={entry.id} /> */}
-                                <NavLink to={`/`} onClick={() => updateStatus(entry.id, "active")} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
+                                <NavLink to={`#`} onClick={() => updateStatus(entry.id, "active")} className="bg-viewBlue p-1 px-4 rounded-[21px] text-[white]">
                                     Active
                                 </NavLink>
-                                <NavLink to={`/`} onClick={() => updateStatus(entry.id, "suspend")} className="bg-red p-1 px-4 rounded-[21px] text-[white]">
+                                <NavLink to={`#`} onClick={() => updateStatus(entry.id, "suspend")} className="bg-red p-1 px-4 rounded-[21px] text-[white]">
                                 Suspend
                                 </NavLink>
                                </td>

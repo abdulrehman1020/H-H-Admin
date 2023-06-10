@@ -55,7 +55,7 @@ const columns = [
   },
 ];
 
-function UserListComponent({ data , setLimit, activeTab, memberLink, detailLink}) {
+function UserListComponent({ data , setLimit, setRefresh, activeTab, loading, memberLink, detailLink}) {
 
   const [search, setSearch] = useState('');
 
@@ -68,9 +68,9 @@ function UserListComponent({ data , setLimit, activeTab, memberLink, detailLink}
 
       <EntriesComponent search={search} setSearch={setSearch} setLimit={setLimit}/>
 
-      {data && activeTab === 'Active Individual' && <ActiveTableComponent name="host" data={data} columns={columns} memberLink={memberLink} detailLink={detailLink} />}
+      {data && activeTab === 'Active Individual' && <ActiveTableComponent name="host" data={data} columns={columns} loading={loading} memberLink={memberLink} detailLink={detailLink} />}
 
-      {data && activeTab === 'Pending Individual' && <PendingTableComponent name="host" data={data} />}
+      {data && activeTab === 'Pending Individual' && <PendingTableComponent name="host" data={data} setRefresh={setRefresh} loading={loading}/>}
     </div>
   );
 }

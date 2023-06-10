@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { getUserDetails } from "../redux/action/IndividualAction";
 import DetailComponent from "../components/DetailComponent";
+import Loader from "../components/Loader"
+import AdminHeader from "../components/AdminHeader";
 // import Loader from "../../components/Loader";
 
 const MemberDetail = () => {
@@ -30,27 +32,28 @@ const MemberDetail = () => {
   console.log("🚀 ~ file: MemberDetail.js:29 ~ MemberDetail ~ member:", member)
   
   if(loading){
-    return <h1>loading...</h1>
+    return <Loader />
   }
 
   
   
 
   return (
-    <div className="bg-white shadow-md rounded-2xl px-8 pt-6 h-auto ml-14 mobile:ml-0 tabletOnly:w-max">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-orange">Member Detail</h1>
-        {/* <Button text="Edit" route="/" /> */}
-      </div>
+    <div className="flex w-full justify-between gap-5">
+      <div className="flex flex-col w-full mx-auto bg-[#F5F5F5]" >
+      <div className="px-10 bg-white">
+          <AdminHeader heading={"Member Detail"} pages={"Pages / Properties Hosts List"} />
+        </div>
+        
+{/*       
       <br></br>
-      <hr></hr>
-      <br></br>
-      <div>
-        <h1 className="text-2xl font-bold text-orange">Personal Information</h1>
-        <br></br>
+      <hr></hr> */}
+    
+      <div className="px-6 py-5 h-screen overflow-auto">
         <DetailComponent member={member} />
              
       </div >
+      </div>
     </div>
   );
 };

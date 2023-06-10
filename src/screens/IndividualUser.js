@@ -15,9 +15,11 @@ function IndividualUser() {
   const [active,] = useState('Active Individual');
   const [pending,] = useState('Pending Individual');
   const [activeTab, setActiveTab] = useState(active);
+  const [refresh, setRefresh] = useState(false);
 
   // Use selector -----------------------------------
   const { loading, individualList, error } = useSelector((state) => state.allIndividuals)
+  console.log("🚀 ~ file: IndividualUser.js:21 ~ IndividualUser ~ loading:", loading)
   // console.log("🚀 ~ file: IndividualUser.js:21 ~ IndividualUser ~ individualList:", individualList)
   // const { message: messageDelete, loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector((state) => state.deleteHost)
 
@@ -48,7 +50,7 @@ function IndividualUser() {
 
     let status = activeTab == active ? 'active' : 'pending';
     dispatch(getAllIndividuals({ limit, status }))
-  }, [limit, activeTab])
+  }, [limit, activeTab, refresh])
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -123,7 +125,7 @@ function IndividualUser() {
 
           <ActivePending active={active} pending={pending} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          <UserListComponent data={individualData} setLimit={setLimit} activeTab={activeTab} memberLink="individualMember" detailLink="memberDetail" />
+          <UserListComponent data={individualData} setLimit={setLimit} setRefresh={setRefresh} activeTab={activeTab} loading={loading} memberLink="individualMember" detailLink="memberDetail" />
         </div>
       </div>
     </div>

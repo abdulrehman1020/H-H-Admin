@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import SideNav from "./components/SideNav";
 import { CreateMember, GroupDetail, GroupMembers, GroupUsers, IndividualMembers, IndividualUser, MemberDetail } from "./screens";
+import { MemberDataProvider } from "./context/MemberDataContext";
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <SideNav />
       <Routes>
       <Route path="/user" element={<IndividualUser />} />
-      <Route path="/memberDetail/:id" element={<MemberDetail />} />
+      <Route path="/memberDetail/:id" element={<MemberDataProvider><MemberDetail /></MemberDataProvider>} />
       <Route path="/individualMember/:id" element={<IndividualMembers />} />
       <Route path="/createMember" element={<CreateMember />} />
       <Route path="/groupUser" element={<GroupUsers />} />

@@ -3,12 +3,14 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteIndividualMember } from '../../redux/action/IndividualAction'
 import { MemberDataContext } from '../../context/MemberDataContext'
+import { deleteGroupMember } from '../../redux/action/GroupAction'
 
 
-const MembersTable = ({ data, setMember }) => {
-        const dispatch = useDispatch();
+const MembersTable = ({ data, type }) => {
+    console.log("🚀 ~ file: MembersTable.js:9 ~ MembersTable ~ type:", type)
+    const dispatch = useDispatch();
     // const { memberData, setMemberData } = useContext(MemberDataContext);
-    // console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ memberData:", memberData)
+    console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ memberData:", data)
     const { error } = useSelector((state) => state.userMembers)
 
    
@@ -19,11 +21,20 @@ const MembersTable = ({ data, setMember }) => {
     console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ state:", state)
     // Handlers
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this property?")) {
-           await dispatch(deleteIndividualMember(id))
-        //    const updatedMembers = data.filter(member => member.id !== id);
-        //    setMemberData(updatedMembers)
+        if (type === "individual") {
+            if (window.confirm("Are you sure you want to delete this member?")) {
+                await dispatch(deleteIndividualMember(id))
+             //    const updatedMembers = data.filter(member => member.id !== id);
+             //    setMemberData(updatedMembers)
+             }
+        }else if(type === "group"){
+            if (window.confirm("Are you sure you want to delete this member?")) {
+                await dispatch(deleteGroupMember(id))
+             //    const updatedMembers = data.filter(member => member.id !== id);
+             //    setMemberData(updatedMembers)
+             }
         }
+        
     }
 
     // const handleCopyBtn = (content) => {

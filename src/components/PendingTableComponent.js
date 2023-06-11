@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 // import unCheckedIcon from '../icons/uncheck.svg'
 import { NavLink } from 'react-router-dom';
 import {updateIndividualStatus} from '../redux/action/IndividualAction'
+import {updateGroupStatus} from '../redux/action/GroupAction'
 import Loader from './Loader';
 
 
-const PendingTableComponent = ({ data, setRefresh, link }) => {
+const PendingTableComponent = ({ data, setRefresh, memberLink, link }) => {
     const dispatch = useDispatch();
-    const {loading, success} = useSelector(state => state.updateIndividualStatus)
+    const {loading: IndividualLoading, success: IndividualSuccess} = useSelector(state => state.updateIndividualStatus)
+    const {loading, success} = useSelector(state => state.updateGroupStatus)
     console.log("🚀 ~ file: PendingTableComponent.js:14 ~ PendingTableComponent ~ success:", success)
 
     // Handlers
@@ -20,13 +22,21 @@ const PendingTableComponent = ({ data, setRefresh, link }) => {
     }
 
     const updateStatus = async (id, status) =>{
-        await dispatch(updateIndividualStatus({id, status}))
-        if (success) {
+        if (memberLink === "groupMember") {
+            await dispatch(updateGroupStatus({id, status}))
+            if (success) {
+                setRefresh(true)
+            }
+        }else if(memberLink === "individualMember"){
+            await dispatch(updateIndividualStatus({id, status}))
+        if (IndividualSuccess) {
             setRefresh(true)
         }
+        }
+        
     }
 
-    if (loading) {
+    if (loading || IndividualLoading) {
         return <Loader />
     }
 

@@ -70,7 +70,7 @@ function UserListComponent({ data , setLimit, setRefresh, activeTab, loading, me
 
       {data && activeTab === 'Active Individual' && <ActiveTableComponent name="host" data={data} columns={columns} loading={loading} memberLink={memberLink} detailLink={detailLink} />}
 
-      {data && activeTab === 'Pending Individual' && <PendingTableComponent name="host" data={data} setRefresh={setRefresh} loading={loading}/>}
+      {data && activeTab === 'Pending Individual' && <PendingTableComponent name="host" data={data} setRefresh={setRefresh} loading={loading}  memberLink={memberLink} />}
     </div>
   );
 }

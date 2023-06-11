@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { allIndividualSlice, individualMemberDeleteSlice, updateIndividualSlice, userDetailSlice, userMembersSlice } from "./slice/IndividualSlice";
-import { allGroupSlice, groupDetailSlice, groupMembersSlice } from "./slice/GroupSlice";
+import { allGroupSlice, groupDetailSlice, groupMemberDeleteSlice, groupMembersSlice, updateGroupSlice } from "./slice/GroupSlice";
 
 
 export const store = configureStore({
@@ -12,6 +12,8 @@ export const store = configureStore({
         updateIndividualStatus: updateIndividualSlice.reducer,
         allGroups: allGroupSlice.reducer,
         groupMembers: groupMembersSlice.reducer,
-        groupDetail: groupDetailSlice.reducer
+        groupDetail: groupDetailSlice.reducer,
+        groupMemberDelete: groupMemberDeleteSlice.reducer,
+        updateGroupStatus: updateGroupSlice.reducer
     }
 })

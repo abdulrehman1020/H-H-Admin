@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllGroups, getGroupDetails, getGroupMembers } from "../action/GroupAction";
+import { deleteGroupMember, getAllGroups, getGroupDetails, getGroupMembers, updateGroupStatus } from "../action/GroupAction";
 
 const allGroupSlice = createSlice({
     name: "groups",
@@ -58,8 +58,9 @@ const allGroupSlice = createSlice({
           state.members = action.payload;
         })
         .addCase(getGroupMembers.rejected, (state, action) => {
+          console.log("🚀 ~ file: GroupSlice.js:61 ~ .addCase ~ action:", action)
           state.loading = false;
-          state.error = action.payload?.error;
+          state.error = action.payload?.msg;
           state.members = []
         });
     },
@@ -98,4 +99,67 @@ const allGroupSlice = createSlice({
     },
   });
 
-export {allGroupSlice, groupMembersSlice, groupDetailSlice}  
+  const groupMemberDeleteSlice = createSlice({
+    name: 'memberDelete',
+    initialState: {
+        loading: false,
+        success: false,
+        message: '',
+        error: ''
+    },
+    // reducers: {
+    //     deletePropertyReset: (state) => {
+    //         state.loading = false;
+    //         state.success = false;
+    //         state.message = '';
+    //         state.error = ''
+    //     }
+    // },
+    extraReducers: (builder) => {
+        builder
+            .addCase(deleteGroupMember.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(deleteGroupMember.fulfilled, (state, action) => {
+                console.log("🚀 ~ file: IndividualSlice.js:123 ~ .addCase ~ action:", action)
+                state.loading = false;
+                state.success = action.payload.success;
+                state.message = action.payload.msg;
+            })
+            .addCase(deleteGroupMember.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.msg
+            })
+    }
+})
+
+const updateGroupSlice = createSlice({
+  name: "updateGroupStatus",
+  initialState: {
+      loading: false,
+      success: false,
+      error: "",
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+      builder
+          .addCase(updateGroupStatus.pending, (state) => {
+              state.loading = true;
+              state.success = false;
+              state.error = ''
+          })
+          .addCase(updateGroupStatus.fulfilled, (state, action) => {
+              state.loading = false;
+              state.success = true;
+              state.error = ''
+          })
+          .addCase(updateGroupStatus.rejected, (state, action) => {
+              state.loading = false;
+              state.success = false;
+              state.error = action.payload?.msg
+          });
+  },
+});
+
+
+export {allGroupSlice, groupMembersSlice, groupDetailSlice, groupMemberDeleteSlice, updateGroupSlice}  

@@ -51,4 +51,33 @@ const getGroupDetails = createAsyncThunk(
     }
 )
 
-export {getAllGroups, getGroupMembers, getGroupDetails}
+const deleteGroupMember = createAsyncThunk(
+    "deleteMember/deleteMember",
+    async (id, { rejectWithValue }) => {
+      try {
+        const { data } = await request.delete(`/group/delete-group-member/${id}`, {
+          withCredentials: true,
+        });
+  
+        return data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
+
+  const updateGroupStatus = createAsyncThunk(
+    "updateGroup/updateGroupStatus",
+    async ({id, status}, {rejectWithValue}) =>{
+
+        try {
+            const {data} = await request.patch(`/group/update-group?id=${id}&status=${status}`)
+
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+)    
+
+export {getAllGroups, getGroupMembers, getGroupDetails, deleteGroupMember, updateGroupStatus}

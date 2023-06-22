@@ -43,7 +43,7 @@ const Login = () => {
               // }
               // else {
               localStorage.setItem("auth-token", res.data.token);
-              localStorage.setItem("login-user", JSON.stringify(res.data.user))
+              // localStorage.setItem("login-user", JSON.stringify(res.data.user))
                 navigate("/user");
             })
             .catch((err) => {

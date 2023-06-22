@@ -39,7 +39,7 @@ const IndividualMembers = () => {
   
   
         {/* host properties list get */}
-        <MembersTable data={data} type={"individual"} />
+        <MembersTable data={data} loading={loading} error={error} type={"individual"} />
   
         {/* <HostDetailsTable /> */}
       </div>

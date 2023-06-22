@@ -12,8 +12,8 @@ function IndividualUser() {
   const dispatch = useDispatch()
   const [limit, setLimit] = useState(10);
 
-  const [active,] = useState('Active Individual');
-  const [pending,] = useState('Pending Individual');
+  const [active,] = useState('Active');
+  const [pending,] = useState('Pending');
   const [activeTab, setActiveTab] = useState(active);
   const [refresh, setRefresh] = useState(false);
 
@@ -118,7 +118,7 @@ function IndividualUser() {
 
       <div className="flex flex-col w-full mx-auto bg-[#F5F5F5]">
         <div className="px-10 bg-white">
-          <AdminHeader heading={"Properties Hosts List"} pages={"Pages / Properties Hosts List"} />
+          <AdminHeader heading={"Individual List"} pages={"Pages / Properties Hosts List"} />
         </div>
 
         <div className="px-6 py-5 h-screen overflow-auto">

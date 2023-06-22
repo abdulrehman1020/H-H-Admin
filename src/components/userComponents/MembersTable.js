@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteIndividualMember } from '../../redux/action/IndividualAction'
 import { MemberDataContext } from '../../context/MemberDataContext'
 import { deleteGroupMember } from '../../redux/action/GroupAction'
+import Loader from '../Loader'
 
 
-const MembersTable = ({ data, type }) => {
+const MembersTable = ({ data, loading, error, type }) => {
     console.log("🚀 ~ file: MembersTable.js:9 ~ MembersTable ~ type:", type)
     const dispatch = useDispatch();
     // const { memberData, setMemberData } = useContext(MemberDataContext);
     console.log("🚀 ~ file: MembersTable.js:13 ~ MembersTable ~ memberData:", data)
-    const { error } = useSelector((state) => state.userMembers)
+    // const { error } = useSelector((state) => state.userMembers)
+
 
    
 
@@ -37,6 +39,9 @@ const MembersTable = ({ data, type }) => {
         
     }
 
+    if (loading) {
+        return <Loader />
+    }
     // const handleCopyBtn = (content) => {
     //     navigator.clipboard.writeText(content);
     //     window.alert("Unique Link Copied")

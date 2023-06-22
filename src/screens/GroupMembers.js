@@ -37,7 +37,7 @@ const GroupMembers = () => {
   
   
         {/* host properties list get */}
-        <MembersTable data={data} type={"group"} />
+        <MembersTable data={data} loading={loading} error={error} type={"group"} />
   
         {/* <HostDetailsTable /> */}
       </div>

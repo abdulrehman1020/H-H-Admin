@@ -68,9 +68,9 @@ function UserListComponent({ data , setLimit, setRefresh, activeTab, loading, me
 
       <EntriesComponent search={search} setSearch={setSearch} setLimit={setLimit}/>
 
-      {data && activeTab === 'Active Individual' && <ActiveTableComponent name="host" data={data} columns={columns} loading={loading} memberLink={memberLink} detailLink={detailLink} />}
+      {data && activeTab === 'Active' && <ActiveTableComponent name="host" data={data} columns={columns} setRefresh={setRefresh} loading={loading} memberLink={memberLink} detailLink={detailLink} />}
 
-      {data && activeTab === 'Pending Individual' && <PendingTableComponent name="host" data={data} setRefresh={setRefresh} loading={loading}  memberLink={memberLink} />}
+      {data && activeTab === 'Pending' && <PendingTableComponent name="host" data={data} setRefresh={setRefresh} loading={loading}  memberLink={memberLink} />}
     </div>
   );
 }

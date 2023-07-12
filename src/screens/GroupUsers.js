@@ -13,9 +13,10 @@ function IndividualUser() {
   const dispatch = useDispatch()
   const [limit, setLimit] = useState(10);
 
-  const [active,] = useState('Active Individual');
-  const [pending,] = useState('Pending Individual');
+  const [active,] = useState('Active');
+  const [pending,] = useState('Pending');
   const [activeTab, setActiveTab] = useState(active);
+  const [refresh, setRefresh] = useState(false);
 
   // Use selector -----------------------------------
   const { loading, groupList, error } = useSelector((state) => state.allGroups)
@@ -50,7 +51,7 @@ function IndividualUser() {
 
     let status = activeTab == active ? 'active' : 'pending';
     dispatch(getAllGroups({ limit, status }))
-  }, [limit, activeTab])
+  }, [limit, activeTab, refresh])
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -125,7 +126,7 @@ function IndividualUser() {
 
           <ActivePending active={active} pending={pending} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          <UserListComponent data={groupData} setLimit={setLimit} activeTab={activeTab} memberLink="groupMember" detailLink="groupDetail" />
+          <UserListComponent data={groupData} setLimit={setLimit} activeTab={activeTab} loading={loading} setRefresh={setRefresh} memberLink="groupMember" detailLink="groupDetail" />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ActionComponent from './userComponents/ActionComponent';
 import Loader from './Loader';
 
-function ActiveTableComponent({ data, columns, loading, memberLink, detailLink }) {
+function ActiveTableComponent({ data, columns, loading, setRefresh, memberLink, detailLink }) {
 console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ loading:", loading)
 console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ data:", data)
 
@@ -64,7 +64,7 @@ console.log("🚀 ~ file: ActiveTableComponent.js:6 ~ ActiveTableComponent ~ dat
 
               <td className="py-4 flex justify-between w-fit gap-4 ml-auto pr-5">
 
-                <ActionComponent memberLink={memberLink} detailLink={detailLink} id={entry.id} />
+                <ActionComponent memberLink={memberLink} detailLink={detailLink} setRefresh={setRefresh} id={entry.id} />
 
               </td>
             </tr>

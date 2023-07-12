@@ -6,7 +6,7 @@ import { useNavigate, NavLink, useLocation } from "react-router-dom";
 
 const SideNav = () => {
   // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const location = useLocation()
 
   // const { adminInfo: hostLogin } = useSelector((state) => state.login);
@@ -14,17 +14,12 @@ const SideNav = () => {
   //   return state;
   // });
 
-  // const handleLogout = () => {
-  //   if (window.confirm("Are you sure you want to log out?")) {
-  //     // dispatch(hostEarningsReset())
-  //     // dispatch(hostPropertiesReset())
-  //     // dispatch(hostPropertyDetailsReset())
-  //     // dispatch(hostPendingEarningsReset())
-  //     // dispatch(hostProfileReset())
-  //     dispatch(logout());
-  //     navigate("/login");
-  //   }
-  // };
+  const handleLogout = () => {
+    if (window.confirm("Are you sure you want to log out?")) {
+      localStorage.removeItem("auth-token");
+      navigate("/login");
+    }
+  };
 
   return (
     <>
@@ -62,13 +57,13 @@ const SideNav = () => {
               link={`groupUser`}
             />
 
-            <SideNavLink
+            {/* <SideNavLink
               // icon={driverIcon}
               label={"Drivers"}
               link={`driverList`}
             />
             <SideNavLink  label={"Orders"} link={"orderList"} />
-            <SideNavLink label={"Packages"} link={"packages"} />
+            <SideNavLink label={"Packages"} link={"packages"} /> */}
           </ul>
         </div>
 
@@ -76,10 +71,10 @@ const SideNav = () => {
 
         <div
           className="flex justify-center border-t-2 border-lightborder w-full m-auto bottom-5 absolute"
-          // onClick={handleLogout}
+          onClick={handleLogout}
         >
           {/* <SideNavLink icon={logoutLogo} label={"Logout"} /> */}
-          <SideNavLink label={"Logout"} link={'user'} />
+          <SideNavLink label={"Logout"} link={'login'} />
         </div>
       </div>
     </>
